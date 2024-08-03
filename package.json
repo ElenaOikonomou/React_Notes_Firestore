@@ -1,6 +1,6 @@
 {
-  "name": "Scrim-s04mqf3",
-  "description": "https://v2.scrimba.com/the-frontend-developer-career-path-c0j/~0uj",
+  "name": "scrim-s04mqf3",
+  "description": "https://v2.scrimba.com/the-frontend-developer-career-path-c0j/~0uj",  
   "scripts": {
     "start": "vite",
     "dev": "vite",
