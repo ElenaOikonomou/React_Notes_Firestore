@@ -13,7 +13,10 @@ export default function Sidebar(props) {
                 <h4 className="text-snippet">{note.body.split("\n")[0]}</h4>
                 <button 
                     className="delete-btn"
-                    onClick={() => props.setCurrentNoteId(note.id)}
+                    onClick={(event) => {
+                        event.stopPropagation(); // Prevent the event from bubbling up to the parent div
+                        props.deleteNote(note.id); // Correctly trigger the delete function
+                    }}
                 >
                     <i className="gg-trash trash-icon"></i>
                 </button>
