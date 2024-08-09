@@ -28,6 +28,8 @@ export default function App() {
             return unsubscribe
         }, [])
 
+        const sortedNotes = notes.sort((a, b) => b.updatedAt - a.updatedAt)
+
         React.useEffect(() => {
             if (!currentNoteId) {
                 setCurrentNoteId(notes[0]?.id)
@@ -70,7 +72,7 @@ export default function App() {
                         className="split"
                     >
                         <Sidebar
-                            notes={notes}
+                            notes={sortedNotes}
                             currentNote={currentNote}
                             setCurrentNoteId={setCurrentNoteId}
                             newNote={createNewNote}
