@@ -10,6 +10,8 @@ export default function App() {
     const [notes, setNotes] = React.useState([])
 
     const [currentNoteId, setCurrentNoteId] = React.useState("")
+
+    const [tempNoteText, setTempNoteText] = React.useState("")
     
     
     const currentNote = 
@@ -36,6 +38,15 @@ export default function App() {
             }
         }, [notes])
 
+        React.useEffect(() => {
+            const timeoutId = setTimeout(() => {
+                if (tempNoteText !== currentNote.body) {
+                    updateNote(tempNoteText)
+                }
+            }, 500)
+            return () => clearTimeout(timeoutId)
+        }, [tempNoteText])
+
     
 
         async function createNewNote() {
@@ -47,6 +58,7 @@ export default function App() {
             const newNoteRef = await addDoc(notesCollection, newNote)
             setCurrentNoteId(newNoteRef.id)
         }
+
     
 
     async function updateNote(text) {
@@ -55,6 +67,13 @@ export default function App() {
             { body: text, updatedAt: Date.now() }, 
             { merge: true })
     }
+
+
+    React.useEffect(() => {
+        if (currentNote) {
+            setTempNoteText(currentNote.body)
+        }
+    }, [currentNote])
 
     async function deleteNote(noteId) {
         const docRef = doc(db, "notes", noteId)
@@ -80,8 +99,8 @@ export default function App() {
                         />
                         {
                         <Editor
-                                currentNote={currentNote}
-                                updateNote={updateNote}
+                        tempNoteText={tempNoteText}
+                        setTempNoteText={setTempNoteText}
                             />
                         }
                     </Split>
